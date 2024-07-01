@@ -263,11 +263,18 @@ async function fetchEntries() {
                 });
                 tableBody.appendChild(row);
             });
+<<<<<<< HEAD
         } else {
             console.error('Element with ID "entriesTable" not found');
+=======
+>>>>>>> 5a5123347646292f154ee8ce8e7e78215a285f4c
         }
     } catch (error) {
         console.error('Error fetching data:', error);
         alert('Error fetching data: ' + error.message);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5a5123347646292f154ee8ce8e7e78215a285f4c

@@ -108,13 +108,162 @@
         <div>
             <a href="gptcoach.html" class="back-button">GPTCoach</a>
             <a href="index.html" class="back-button">Form</a>
+<<<<<<< HEAD
             <a href="weight.html" class="back-button">Weight</a>
+=======
+>>>>>>> 5a5123347646292f154ee8ce8e7e78215a285f4c
             <a href="entries.html" class="back-button">Entries</a>
             <button id="logoutButton" class="back-button">Logout</button>
         </div>
     </header>
     <div class="container">
         <p>Welcome Ruben!</p>
+<<<<<<< HEAD
     </div>
+=======
+        <label for="dateRange">Select Date Range:</label>
+        <select id="dateRange">
+            <option value="7">1 Week</option>
+            <option value="14">2 Weeks</option>
+            <option value="30">1 Month</option>
+            <option value="90">3 Months</option>
+            <option value="180">6 Months</option>
+            <option value="all">All</option>
+        </select>
+        <div class="chart-container">
+            <canvas id="weightChart"></canvas>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const SUPABASE_URL = 'https://xgujrdvrazidffhxyiyw.supabase.co';
+            const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhndWpyZHZyYXppZGZmaHh5aXl3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTk1NzIyNTEsImV4cCI6MjAzNTE0ODI1MX0.JtDbU7FSCPCPMQYQNU2bMPQEux1TggsfaQWsXpvxqFk';
+
+            if (!localStorage.getItem('authenticated')) {
+                window.location.href = 'login.html';
+            }
+
+            const loginTime = localStorage.getItem('loginTime');
+            if (loginTime && (Date.now() - parseInt(loginTime)) > 3600000) {
+                localStorage.removeItem('authenticated');
+                localStorage.removeItem('loginTime');
+                alert('Session expired. Please log in again.');
+                window.location.href = 'login.html';
+            }
+
+            const logoutButton = document.getElementById('logoutButton');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', () => {
+                    localStorage.removeItem('authenticated');
+                    localStorage.removeItem('loginTime');
+                    alert('Logged out successfully.');
+                    window.location.href = 'login.html';
+                });
+            }
+
+            async function fetchWeightData() {
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/weight_data`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        }
+                    });
+
+                    console.log('Response status:', response.status);  // Log response status
+                    const responseText = await response.text();
+                    console.log('Response text:', responseText);  // Log response text
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+
+                    const data = JSON.parse(responseText);
+                    console.log('Fetched data:', data);  // Log fetched data
+                    return data;
+                } catch (error) {
+                    console.error('Error fetching data from Supabase:', error);
+                    alert('Error fetching data from Supabase: ' + error.message);
+                }
+            }
+
+            const weightData = await fetchWeightData();
+
+            if (weightData && weightData.length > 0) {
+                const parsedWeightData = weightData.map(entry => ({
+                    date: new Date(entry.Date),
+                    weight: entry.Weight
+                }));
+                console.log('Parsed weight data:', parsedWeightData);
+
+                const ctx = document.getElementById('weightChart').getContext('2d');
+                const chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: parsedWeightData.map(entry => entry.date),
+                        datasets: [{
+                            label: 'Weight (kg)',
+                            data: parsedWeightData.map(entry => entry.weight),
+                            backgroundColor: 'white',
+                            borderColor: 'white',
+                            fill: false,
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'day',
+                                    tooltipFormat: 'MMM d, yyyy'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Date',
+                                    color: 'white'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.4)'
+                                },
+                                ticks: {
+                                    color: 'white'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Weight (kg)',
+                                    color: 'white'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.4)'
+                                },
+                                ticks: {
+                                    color: 'white'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                labels: {
+                                    color: 'white'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+>>>>>>> 5a5123347646292f154ee8ce8e7e78215a285f4c
 </body>
 </html>
