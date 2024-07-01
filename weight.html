@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight</title>
+    <link rel="stylesheet" href="weight.css">
+    <style>
+        /* Additional CSS rules */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header div {
+            display: flex;
+            gap: 10px;
+        }
+
+        a.back-button, button#logoutButton {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+            line-height: normal;
+        }
+
+        a.back-button:hover, button#logoutButton:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 20px;
+            text-align: left;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 85%;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+
+        .label-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+        }
+
+        .label-selection {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 100px;
+        }
+
+        .right-align {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-left: auto;
+        }
+
+        .weight-input {
+            background-color: white;
+            color: black;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+            line-height: normal;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Weight</h1>
+        <div>
+            <a href="dashboard.html" class="back-button">Dashboard</a>
+            <a href="gptcoach.html" class="back-button">GPTCoach</a>
+            <a href="index.html" class="back-button">Form</a>
+            <a href="entries.html" class="back-button">Entries</a>
+            <button id="logoutButton" class="back-button">Logout</button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="label-container">
+            <div class="label-selection">
+                <div>
+                    <label for="dateRange">Select Date Range:</label>
+                    <select id="dateRange">
+                        <option value="7">1 Week</option>
+                        <option value="14">2 Weeks</option>
+                        <option value="30">1 Month</option>
+                        <option value="90">3 Months</option>
+                        <option value="180">6 Months</option>
+                        <option value="all">All</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="currentWeight">Current Weight: 
+                        <span id="latest-weight">Loading...</span>
+                    </label>
+                </div>
+            </div>
+            <div class="right-align">
+                <label for="todaysWeight">Today's Weight:</label>
+                <input type="number" id="todaysWeight" class="weight-input" />
+                <button id="submitWeight" class="submit-button">Submit</button>
+            </div>
+        </div>
+        <div class="chart-container" id="chartContainer">
+            <canvas id="weightChart"></canvas>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Developed by Ruben Triegaardt</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const SUPABASE_URL = 'https://xgujrdvrazidffhxyiyw.supabase.co';
+            const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhndWpyZHZyYXppZGZmaHh5aXl3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTk1NzIyNTEsImV4cCI6MjAzNTE0ODI1MX0.JtDbU7FSCPCPMQYQNU2bMPQEux1TggsfaQWsXpvxqFk';
+
+            // Global variable to hold chart instance
+            let weightChart;
+
+            // Function to create and insert a new canvas element
+            function createNewCanvas() {
+                const container = document.getElementById('chartContainer');
+                container.innerHTML = '<canvas id="weightChart"></canvas>';
+                return document.getElementById('weightChart').getContext('2d');
+            }
+
+            // Authentication check
+            if (!localStorage.getItem('authenticated')) {
+                window.location.href = 'login.html';
+            }
+
+            // Session expiration check
+            const loginTime = localStorage.getItem('loginTime');
+            if (loginTime && (Date.now() - parseInt(loginTime)) > 3600000) {
+                localStorage.removeItem('authenticated');
+                localStorage.removeItem('loginTime');
+                alert('Session expired. Please log in again.');
+                window.location.href = 'login.html';
+            }
+
+            // Logout functionality
+            const logoutButton = document.getElementById('logoutButton');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', () => {
+                    localStorage.removeItem('authenticated');
+                    localStorage.removeItem('loginTime');
+                    alert('Logged out successfully.');
+                    window.location.href = 'login.html';
+                });
+            }
+
+            // Fetch bodybuilding data
+            async function fetchBodybuildingData() {
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/bodybuilding_data`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        }
+                    });
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    const responseText = await response.text();
+                    return JSON.parse(responseText);
+                } catch (error) {
+                    console.error('Error fetching bodybuilding data from Supabase:', error);
+                    alert('Error fetching bodybuilding data from Supabase: ' + error.message);
+                }
+            }
+
+            // Fetch weight data
+            async function fetchWeightData() {
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/weight_data`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        }
+                    });
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    const responseText = await response.text();
+                    return JSON.parse(responseText);
+                } catch (error) {
+                    console.error('Error fetching data from Supabase:', error);
+                    alert('Error fetching data from Supabase: ' + error.message);
+                }
+            }
+
+            // Filter data by date range
+            function filterDataByDateRange(data, range) {
+                if (range === 'all') return data;
+                const daysAgo = new Date(new Date().setDate(new Date().getDate() - parseInt(range)));
+                return data.filter(entry => new Date(entry.date) >= daysAgo);
+            }
+
+            // Calculate trendline
+            function calculateTrendLine(data) {
+                const n = data.length;
+                const x = Array.from({ length: n }, (v, k) => k);
+                const y = data.map(d => d.weight);
+
+                const sumX = x.reduce((a, b) => a + b, 0);
+                const sumY = y.reduce((a, b) => a + b, 0);
+                const sumXY = x.reduce((sum, xi, i) => sum + xi * y[i], 0);
+                const sumXX = x.reduce((sum, xi) => sum + xi * xi, 0);
+
+                const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+                const intercept = (sumY - slope * sumX) / n;
+
+                return x.map(xi => ({
+                    date: data[xi].date,
+                    weight: slope * xi + intercept
+                }));
+            }
+
+            // Update chart data and trend line
+            function updateChart(data) {
+                if (weightChart) {
+                    weightChart.destroy();
+                }
+
+                const ctx = createNewCanvas();
+                weightChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.map(entry => entry.date),
+                        datasets: [
+                            {
+                                label: 'Weight (kg)',
+                                data: data,
+                                backgroundColor: 'white',
+                                borderColor: 'white',
+                                fill: false,
+                                tension: 0.1,
+                                parsing: {
+                                    xAxisKey: 'date',
+                                    yAxisKey: 'weight'
+                                }
+                            },
+                            {
+                                label: 'Trend Line',
+                                data: calculateTrendLine(data),
+                                backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                                borderColor: '#007BFF',
+                                fill: false,
+                                borderDash: [10, 5],
+                                tension: 0,
+                                parsing: {
+                                    xAxisKey: 'date',
+                                    yAxisKey: 'weight'
+                                }
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false, // Adjust this to true or false based on requirements
+                        interaction: {
+                            mode: 'nearest', // Using `nearest` for best interaction
+                            intersect: true // Ensure intersection is required for tooltips
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const entry = context.raw;
+                                        return `Date: ${new Date(entry.date).toDateString()}, Weight: ${entry.weight} kg`;
+                                    }
+                                }
+                            },
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                labels: {
+                                    color: 'white'
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'day',
+                                    tooltipFormat: 'MMM d, yyyy'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Date',
+                                    color: 'white'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.4)'
+                                },
+                                ticks: {
+                                    color: 'white'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Weight (kg)',
+                                    color: 'white'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.4)'
+                                },
+                                ticks: {
+                                    color: 'white'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Check if today's entry exists
+            async function checkExistingEntry(date) {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/weight_data?Date=eq.${date}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to check existing entry');
+                }
+                const data = await response.json();
+                return data.length > 0 ? true : false;
+            }
+
+            // Submit today's weight
+            async function submitTodaysWeight() {
+                const weightInput = document.getElementById('todaysWeight').value;
+                if (!weightInput) return alert('Please enter a weight.');
+                
+                const date = new Date().toISOString().split('T')[0];
+                try {
+                    const entryExists = await checkExistingEntry(date);
+
+                    // If an entry exists, update it. Otherwise, insert a new entry.
+                    const method = entryExists ? 'PATCH' : 'POST';
+                    const url = `${SUPABASE_URL}/rest/v1/weight_data`;
+
+                    const body = { Date: date, Weight: weightInput }; // Always include Date and Weight
+
+                    const response = await fetch(url, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        },
+                        body: JSON.stringify(body)
+                    });
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error('Error details:', errorText);
+                        throw new Error(`Failed to ${method === 'POST' ? 'submit' : 'update'} weight data.`);
+                    }
+                    document.getElementById('todaysWeight').value = '';
+                    alert(`Weight ${method === 'POST' ? 'submitted' : 'updated'} successfully!`);
+
+                    // Re-fetch weight data to ensure the chart is updated
+                    await loadAndDisplayWeightData();
+                } catch (error) {
+                    console.error(error);
+                    alert(error.message);
+                }
+            }
+
+            document.getElementById('submitWeight').addEventListener('click', submitTodaysWeight);
+
+            // Fetch and display weight data
+            async function loadAndDisplayWeightData() {
+                const weightData = await fetchWeightData();
+                if (weightData && weightData.length) {
+                    const parsedWeightData = weightData.map(entry => ({ date: new Date(entry.Date), weight: entry.Weight }));
+                    const dateRangeSelect = document.getElementById('dateRange');
+
+                    // Initialize chart with a default 30-day range
+                    dateRangeSelect.value = '30';
+                    let filteredData = filterDataByDateRange(parsedWeightData, dateRangeSelect.value);
+
+                    // Log the filtered data for debugging purposes
+                    console.log('Filtered data:', filteredData);
+
+                    // Create or update the chart
+                    updateChart(filteredData);
+
+                    // Listen to date range changes
+                    dateRangeSelect.addEventListener('change', () => {
+                        const selectedRange = dateRangeSelect.value;
+                        filteredData = filterDataByDateRange(parsedWeightData, selectedRange);
+
+                        // Log the updated filtered data for debugging purposes
+                        console.log('Updated filtered data:', filteredData);
+
+                        updateChart(filteredData);
+                    });
+                }
+            }
+
+            await loadAndDisplayWeightData();
+
+            // Update latest weight
+            const bodybuildingData = await fetchBodybuildingData();
+            const latestWeight = bodybuildingData?.[0]?.weight_kg ?? "No Data";
+            document.getElementById('latest-weight').textContent = latestWeight + ' Kg';
+        });
+    </script>
+</body>
+
+</html>

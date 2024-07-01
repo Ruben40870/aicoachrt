@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPTCoach</title>
+    <link rel="stylesheet" href="gptcoach.css">
+</head>
+
+<body>
+    <header>
+        <h1>GPTCoach</h1>
+        <div>
+            <a href="dashboard.html" class="back-button">Dashboard</a>
+            <a href="index.html" class="back-button">Form</a>
+            <a href="weight.html" class="back-button">Weight</a>
+            <a href="entries.html" class="back-button">Entries</a>
+            <button id="logoutButton" class="back-button">Logout</button>
+        </div>
+    </header>
+    <div class="container">
+        <p>Welcome Ruben!</p>
+        <!-- Add more dashboard content here -->
+
+
+
+    </div>
+    <script>
+        // Check if the user is authenticated
+        if (!localStorage.getItem('authenticated')) {
+            window.location.href = 'login.html';
+        }
+
+        // Auto logout after 1 hour
+        const loginTime = localStorage.getItem('loginTime');
+        if (loginTime && (Date.now() - parseInt(loginTime)) > 3600000) { // 1 hour in milliseconds
+            localStorage.removeItem('authenticated');
+            localStorage.removeItem('loginTime');
+            alert('Session expired. Please log in again.');
+            window.location.href = 'login.html';
+        }
+
+        // Logout button functionality
+        const logoutButton = document.getElementById('logoutButton');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('authenticated');
+                localStorage.removeItem('loginTime');
+                alert('Logged out successfully.');
+                window.location.href = 'login.html';
+            });
+        }
+    </script>
+</body>
+
+</html>

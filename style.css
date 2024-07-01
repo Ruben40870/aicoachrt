@@ -1,0 +1,223 @@
+/* Body styling with background image */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white; /* Make all text white */
+}
+
+/* Header styling */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+}
+
+/* Center the main heading */
+h1 {
+  text-align: center;
+}
+
+/* Footer styling */
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+footer p {
+  margin: 30px;
+  text-align: right;
+  padding-right: 20px;
+  font-size: 16px;
+}
+
+/* Buttons for navigation */
+.entries-button, .back-button, .logout-button, input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  font-size: 16px; /* Ensure all buttons have the same font size */
+  line-height: normal; /* Ensure all buttons have the same line height */
+}
+
+/* Hover effect for buttons */
+.entries-button:hover, .back-button:hover, .logout-button:hover, input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Container to ensure form is centered */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh; /* Ensure the container takes the full viewport height */
+}
+
+/* Form container styling */
+form {
+  max-width: 700px;
+  width: 100%; /* Ensure it respects the max-width */
+  margin: auto;
+  margin-top: 30px;
+  background-color: rgba(255, 255, 255, 0.6); /* Slightly transparent white background */
+  padding: 20px;
+  border-radius: 10px;
+  color: black; /* Ensure form text is black for readability */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a slight shadow for depth */
+}
+
+/* Form labels styling */
+form label {
+  display: block;
+  margin-top: 30px;
+  text-align: left; /* Align labels to the left */
+}
+
+/* Input fields styling */
+form input[type="text"], form input[type="number"], form input[type="date"] {
+  display: block;
+  width: calc(100% - 20px); /* Ensure the inputs take full width minus padding */
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: left; /* Align input text to the left */
+}
+
+/* Submit button styling */
+form input[type="submit"] {
+  margin: 20px auto;
+  color: white;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  display: block; /* Center the submit button */
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: transparent;
+  color: white; /* Ensure table text is white */
+}
+
+/* Table borders styling */
+table, th, td {
+  border: 1px solid rgba(255, 255, 255, 0.8); /* White border with transparency */
+}
+
+/* Table cells padding and alignment */
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+/* Custom styles for specific table columns */
+.date {
+  width: 100px; /* Adjust the width as needed */
+}
+
+th.day_of_week, td.day_of_week {
+  width: 100px; /* Set the width for the day of the week column */
+}
+
+th.weight_kg, td.weight_kg {
+  width: 100px; /* Set the width for the weight column */
+}
+
+th.calories_kcal, td.calories_kcal {
+  width: 100px; /* Set the width for the calories column */
+}
+
+th.protein_g, td.protein_g {
+  width: 100px; /* Set the width for the protein column */
+}
+
+th.carbs_g, td.carbs_g {
+  width: 100px; /* Set the width for the carbs column */
+}
+
+th.fats_g, td.fats_g {
+  width: 100px; /* Set the width for the fats column */
+}
+
+th.sleep_duration_min, td.sleep_duration_min {
+  width: 125px; /* Set the width for the sleep duration column */
+}
+
+th.sleep_quality, td.sleep_quality {
+  width: 125px; /* Set the width for the sleep quality column */
+}
+
+th.mood, td.mood {
+  width: 100px; /* Set the width for the mood column */
+}
+
+th.stress, td.stress {
+  width: 100px; /* Set the width for the stress column */
+}
+
+th.gym_performance, td.gym_performance {
+  width: 125px; /* Set the width for the gym performance column */
+}
+
+th.resting_heart_rate, td.resting_heart_rate {
+  width: 125px; /* Set the width for the resting heart rate column */
+}
+
+th.blood_pressure, td.blood_pressure {
+  width: 125px; /* Set the width for the blood pressure column */
+}
+
+th.blood_oxygen_level, td.blood_oxygen_level {
+  width: 125px; /* Set the width for the blood oxygen level column */
+}
+
+th.supplements_taken, td.supplements_taken {
+  width: 200px; /* Set the width for the supplements taken column */
+}
+
+th.peds_taken, td.peds_taken {
+  width: 400px; /* Set the width for the PEDs taken column */
+}
+
+/* Custom styles for specific input fields in the form */
+input#date, input#day_of_week, input#weight_kg, input#calories_kcal, input#protein_g,
+input#carbs_g, input#fats_g, input#sleep_duration_min, input#sleep_quality, input#mood,
+input#stress, input#gym_performance, input#resting_heart_rate, input#blood_pressure,
+input#blood_oxygen_level, input#supplements_taken, input#peds_taken {
+  background-color: white; /* Example background color for input fields */
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 5px;
+  width: calc(225px); /* Ensure the inputs take full width minus padding */
+}
+
+/* Custom size for specific input fields */
+input#supplements_taken {
+  width: 350px;
+  height: 100px;
+}
+
+input#peds_taken {
+  width: 450px;
+  height: 150px;
+}
