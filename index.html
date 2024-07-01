@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bodybuilding Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Bodybuilding Tracker</h1>
+        <div>
+            <a href="dashboard.html" class="back-button">Dashboard</a>
+            <a href="gptcoach.html" class="back-button">GPTCoach</a>
+            <a href="entries.html" class="entries-button">Entries</a>
+            <button id="logoutButton" class="back-button">Logout</button>
+        </div>
+    </header>
+    <form id="entryForm">
+        <label for="date">Date:</label><br>
+        <input type="date" id="date" name="date" required><br>
+        <label for="day_of_week">Day of the Week:</label><br>
+        <input type="text" id="day_of_week" name="day_of_week" readonly required><br>
+        <label for="weight_kg">Weight (Kg):</label><br>
+        <input type="number" step="0.01" id="weight_kg" name="weight_kg"><br>
+        <label for="calories_kcal">Calories (kcal):</label><br>
+        <input type="number" id="calories_kcal" name="calories_kcal"><br>
+        <label for="protein_g">Protein (g):</label><br>
+        <input type="number" id="protein_g" name="protein_g"><br>
+        <label for="carbs_g">Carbs (g):</label><br>
+        <input type="number" id="carbs_g" name="carbs_g"><br>
+        <label for="fats_g">Fats (g):</label><br>
+        <input type="number" id="fats_g" name="fats_g"><br>
+        <label for="sleep_duration_min">Sleep Duration (min):</label><br>
+        <input type="number" id="sleep_duration_min" name="sleep_duration_min"><br>
+        <label for="sleep_quality">Sleep Quality:</label><br>
+        <input type="number" id="sleep_quality" name="sleep_quality"><br>
+        <label for="mood">Mood:</label><br>
+        <input type="number" id="mood" name="mood"><br>
+        <label for="stress">Stress:</label><br>
+        <input type="number" id="stress" name="stress"><br>
+        <label for="gym_performance">Gym Performance:</label><br>
+        <input type="number" id="gym_performance" name="gym_performance"><br>
+        <label for="resting_heart_rate">Resting Heart Rate:</label><br>
+        <input type="number" id="resting_heart_rate" name="resting_heart_rate"><br>
+        <label for="blood_pressure">Blood Pressure:</label><br>
+        <input type="text" id="blood_pressure" name="blood_pressure"><br>
+        <label for="blood_oxygen_level">Blood Oxygen Level:</label><br>
+        <input type="number" id="blood_oxygen_level" name="blood_oxygen_level"><br>
+        <label for="supplements_taken">Supplements Taken:</label><br>
+        <input type="text" id="supplements_taken" name="supplements_taken"><br>
+        <label for="peds_taken">PEDs Taken:</label><br>
+        <input type="text" id="peds_taken" name="peds_taken"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        // Check if the user is authenticated
+        if (!localStorage.getItem('authenticated')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+    <script src="script.js"></script>
+
+    <footer>
+        <p>Developed by Ruben Triegaardt</p>
+    </footer>
+</body>
+</html>

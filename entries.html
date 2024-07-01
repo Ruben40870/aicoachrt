@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entries</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Entries</h1>
+        <div>
+            <a href="dashboard.html" class="back-button">Dashboard</a>
+            <a href="gptcoach.html" class="back-button">GPTCoach</a>
+            <a href="index.html" class="back-button">Form</a>
+            <button id="logoutButton" class="back-button">Logout</button>
+        </div>
+    </header>
+    <table id="entriesTable">
+        <thead>
+            <tr>
+                <th class="date">Date</th>
+                <th class="day_of_week">Day of the Week</th>
+                <th class="weight_kg">Weight (Kg)</th>
+                <th class="calories_kcal">Calories (kcal)</th>
+                <th class="protein_g">Protein (g)</th>
+                <th class="carbs_g">Carbs (g)</th>
+                <th class="fats_g">Fats (g)</th>
+                <th class="sleep_duration_min">Sleep Duration (min)</th>
+                <th class="sleep_quality">Sleep Quality</th>
+                <th class="mood">Mood</th>
+                <th class="stress">Stress</th>
+                <th class="gym_performance">Gym Performance</th>
+                <th class="resting_heart_rate">Resting Heart Rate</th>
+                <th class="blood_pressure">Blood Pressure</th>
+                <th class="blood_oxygen_level">Blood Oxygen Level</th>
+                <th class="supplements_taken">Supplements Taken</th>
+                <th class="peds_taken">PEDs Taken</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <script>
+        // Check if the user is authenticated
+        if (!localStorage.getItem('authenticated')) {
+            window.location.href = 'login.html';
+        }
+
+        // Auto logout after 1 hour
+        const loginTime = localStorage.getItem('loginTime');
+        if (loginTime && (Date.now() - parseInt(loginTime)) > 3600000) { // 1 hour in milliseconds
+            localStorage.removeItem('authenticated');
+            localStorage.removeItem('loginTime');
+            alert('Session expired. Please log in again.');
+            window.location.href = 'login.html';
+        }
+
+        // Logout button functionality
+        const logoutButton = document.getElementById('logoutButton');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('authenticated');
+                localStorage.removeItem('loginTime');
+                alert('Logged out successfully.');
+                window.location.href = 'login.html';
+            });
+        }
+
+        // Fetch entries after authentication check
+        fetchEntries();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

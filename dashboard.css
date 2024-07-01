@@ -1,0 +1,59 @@
+/* Body styling with background image */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white; /* Make all text white */
+}
+
+/* Header styling */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+}
+
+/* Center the main heading */
+h1 {
+  text-align: center;
+}
+
+/* Footer styling */
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+footer p {
+  margin: 30px;
+  text-align: right;
+  padding-right: 20px;
+  font-size: 16px;
+}
+
+/* Buttons for navigation */
+.entries-button, .back-button, .logout-button, input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  font-size: 16px; /* Ensure all buttons have the same font size */
+  line-height: normal; /* Ensure all buttons have the same line height */
+}
+
+/* Hover effect for buttons */
+.entries-button:hover, .back-button:hover, .logout-button:hover, input[type="submit"]:hover {
+  background-color: #0056b3;
+}

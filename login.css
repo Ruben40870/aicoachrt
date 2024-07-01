@@ -1,0 +1,68 @@
+/* Body styling with background image */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  color: white; /* Make all text white */
+}
+
+/* Login container styling */
+.login-container {
+  max-width: 400px;
+  width: 100%; /* Ensure it respects the max-width */
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+  padding: 20px;
+  border-radius: 10px;
+  color: black; /* Ensure form text is black for readability */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a slight shadow for depth */
+  text-align: center;
+}
+
+/* Heading styling */
+.login-container h2 {
+  margin-bottom: 20px;
+  color: black; /* Set the login heading text color to black */
+}
+
+/* Label styling */
+.login-container label {
+  display: block;
+  margin-top: 10px;
+  text-align: left; /* Align labels to the left */
+  margin-left: 25px; /* Indent the labels from the left */
+}
+
+/* Input fields styling */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  max-width: 350px;
+  width: calc(100% - 50px); /* Ensure the inputs take full width minus padding */
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: left; /* Align input text to the left */
+}
+
+/* Submit button styling for login */
+.login-container input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-container input[type="submit"]:hover {
+  background-color: #0056b3;
+}
