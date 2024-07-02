@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const SUPABASE_URL = 'https://xgujrdvrazidffhxyiyw.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhndWpyZHZyYXppZGZmaHh5aXl3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTk1NzIyNTEsImV4cCI6MjAzNTE0ODI1MX0.JtDbU7FSCPCPMQYQNU2bMPQEux1TggsfaQWsXpvxqFk';
     const table = 'bodybuilding_data';
+    const maxEntries = 10;
 
     // Login functionality
     const loginForm = document.getElementById('loginForm');
@@ -252,7 +253,7 @@ async function fetchEntries() {
                 const values = [
                     entry.date, entry.day_of_week, entry.weight_kg, entry.calories_kcal, entry.protein_g,
                     entry.carbs_g, entry.fats_g, entry.sleep_duration_min, entry.sleep_quality, entry.mood,
-                    entry.stress, entry.gym_performance, entry.resting_heart_rate, entry.blood_pressure,
+                    entry.stress, entry.gym_performance, entry.gym_strength, entry.resting_heart_rate, entry.blood_pressure,
                     entry.blood_oxygen_level, entry.supplements_taken ? entry.supplements_taken.replace(/\n/g, '<br>') : "No Data",
                     entry.peds_taken ? entry.peds_taken.replace(/\n/g, '<br>') : "No Data"
                 ];
@@ -263,18 +264,11 @@ async function fetchEntries() {
                 });
                 tableBody.appendChild(row);
             });
-<<<<<<< HEAD
         } else {
             console.error('Element with ID "entriesTable" not found');
-=======
->>>>>>> 5a5123347646292f154ee8ce8e7e78215a285f4c
         }
     } catch (error) {
         console.error('Error fetching data:', error);
         alert('Error fetching data: ' + error.message);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 5a5123347646292f154ee8ce8e7e78215a285f4c

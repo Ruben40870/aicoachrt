@@ -9,25 +9,39 @@
 </head>
 
 <body>
-    <header>
-        <h1>GPTCoach</h1>
-        <div>
-            <a href="dashboard.html" class="back-button">Dashboard</a>
-            <a href="index.html" class="back-button">Form</a>
-<<<<<<< HEAD
-            <a href="weight.html" class="back-button">Weight</a>
-=======
->>>>>>> 5a5123347646292f154ee8ce8e7e78215a285f4c
-            <a href="entries.html" class="back-button">Entries</a>
-            <button id="logoutButton" class="back-button">Logout</button>
+    <div class="wrapper">
+        <header>
+            <h1>GPTCoach</h1>
+            <div>
+                <a href="dashboard.html" class="back-button">Dashboard</a>
+                <a href="index.html" class="back-button">Form</a>
+                <a href="weight.html" class="back-button">Weight</a>
+                <a href="entries.html" class="back-button">Entries</a>
+                <button id="logoutButton" class="back-button">Logout</button>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="advice-section">
+                <div class="advice-box-container">
+                    <h2 class="advice-title">Last Week's Advice:</h2>
+                    <div class="advice-box">
+                        <!-- Content for the first advice box -->
+                    </div>
+                </div>
+                <div class="advice-box-container">
+                    <h2 class="advice-title">This Week's Advice:</h2>
+                    <div class="advice-box">
+                        <!-- Content for the second advice box -->
+                    </div>
+                    <button class="refresh-button">Refresh</button> <!-- Refresh button added here -->
+                </div>
+            </div>
         </div>
-    </header>
-    <div class="container">
-        <p>Welcome Ruben!</p>
-        <!-- Add more dashboard content here -->
 
-
-
+        <footer class="footer">
+            <p>Developed by Ruben Triegaardt</p>
+        </footer>
     </div>
     <script>
         // Check if the user is authenticated
@@ -52,6 +66,14 @@
                 localStorage.removeItem('loginTime');
                 alert('Logged out successfully.');
                 window.location.href = 'login.html';
+            });
+        }
+
+        // Refresh button functionality
+        const refreshButton = document.querySelector('.refresh-button');
+        if (refreshButton) {
+            refreshButton.addEventListener('click', () => {
+                location.reload(); // Reload the page
             });
         }
     </script>

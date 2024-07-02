@@ -1,12 +1,36 @@
-/* Body styling with background image */
+/* General Body Styling */
 body {
   font-family: Arial, sans-serif;
-  margin: 20px;
-  background-image: url('background.jpg');
+  margin: 0;
+  padding: 0;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  color: white; /* Make all text white */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('gym_background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  filter: blur(4px);
+  z-index: -1;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* Header styling */
@@ -15,26 +39,37 @@ header {
   justify-content: space-between;
   align-items: center;
   font-size: 20px;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.header-spacing {
+  margin-top: 0;
 }
 
 /* Center the main heading */
 h1 {
   text-align: center;
+  margin-top: 20px;
+}
+
+header div {
+  display: flex;
+  gap: 10px;
 }
 
 /* Footer styling */
 .footer {
-  position: fixed;
-  bottom: 0;
-  right: 0;
   width: 100%;
-  z-index: 2;
+  text-align: right;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 footer p {
-  margin: 30px;
-  text-align: right;
-  padding-right: 20px;
+  margin: 0;
   font-size: 16px;
 }
 
@@ -49,8 +84,9 @@ footer p {
   cursor: pointer;
   display: inline-block;
   text-align: center;
-  font-size: 16px; /* Ensure all buttons have the same font size */
-  line-height: normal; /* Ensure all buttons have the same line height */
+  font-size: 16px;
+  line-height: normal;
+  margin-top: 0px;
 }
 
 /* Hover effect for buttons */
@@ -58,70 +94,117 @@ footer p {
   background-color: #0056b3;
 }
 
-/* Container to ensure form is centered */
 .container {
+  flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh; /* Ensure the container takes the full viewport height */
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  padding: 0 30px;
 }
 
 /* Form container styling */
 form {
   max-width: 700px;
-  width: 100%; /* Ensure it respects the max-width */
+  width: 100%;
   margin: auto;
-  margin-top: 30px;
-  background-color: rgba(255, 255, 255, 0.6); /* Slightly transparent white background */
+  margin-top: 15px;
+  background-color: rgba(255, 255, 255, 0.6);
   padding: 20px;
   border-radius: 10px;
-  color: black; /* Ensure form text is black for readability */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a slight shadow for depth */
+  color: black;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Input fields styling */
+form input[type="text"], 
+form input[type="number"], 
+form input[type="date"], 
+form textarea,
+form select {
+  display: block;
+  width: calc(100% - 20px);
+  margin-bottom: 10px; /* Ensure consistent margin between input fields */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 /* Form labels styling */
 form label {
   display: block;
-  margin-top: 30px;
-  text-align: left; /* Align labels to the left */
-}
-
-/* Input fields styling */
-form input[type="text"], form input[type="number"], form input[type="date"] {
-  display: block;
-  width: calc(100% - 20px); /* Ensure the inputs take full width minus padding */
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: left; /* Align input text to the left */
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 /* Submit button styling */
 form input[type="submit"] {
   margin: 20px auto;
   color: white;
-  padding: 10px 20px;
+  padding: 10px;
   background-color: #007BFF;
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  display: block; /* Center the submit button */
+  display: block;
 }
 
-/* Table styling */
-table {
+/* Ensure the table-container is positioned relative */
+.table-container {
+  position: relative;
   width: 100%;
-  border-collapse: collapse;
   margin-top: 20px;
-  background-color: transparent;
-  color: white; /* Ensure table text is white */
+  border-radius: 15px; /* Apply rounded corners */
+  overflow: hidden; /* Ensure rounded corners are respected for the overlay */
+  padding: 20px; /* Add padding for the gap */
+  box-sizing: border-box; /* Include padding in the container's dimensions */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Semi-transparent overlay for the table container */
+.table-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  border-radius: 15px; /* Apply rounded corners */
+  z-index: -1; /* Ensure it appears behind the table */
+}
+
+/* Adjust the table dimensions */
+.entries-table {
+  width: 100%;
+  display: block;
+  border-collapse: collapse;
+  z-index: 0; /* Ensure the table appears above the overlay */
+}
+
+.entries-table th,
+.entries-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: white; /* Ensure text is visible against the dark background */
+}
+
+.entries-table th {
+  background-color: rgba(0, 0, 0, 0.7); /* Darker background for header */
+}
+
+.entries-table tr:hover {
+  background-color: rgba(0, 0, 0, 0.3); /* Lighten row on hover */
 }
 
 /* Table borders styling */
 table, th, td {
-  border: 1px solid rgba(255, 255, 255, 0.8); /* White border with transparency */
+  border: 1px solid rgba(255, 255, 255, 1);
 }
 
 /* Table cells padding and alignment */
@@ -179,6 +262,10 @@ th.gym_performance, td.gym_performance {
   width: 125px; /* Set the width for the gym performance column */
 }
 
+th.gym_strength, td.gym_strength {
+  width: 125px; /* Set the width for the gym performance column */
+}
+
 th.resting_heart_rate, td.resting_heart_rate {
   width: 125px; /* Set the width for the resting heart rate column */
 }
@@ -202,8 +289,8 @@ th.peds_taken, td.peds_taken {
 /* Custom styles for specific input fields in the form */
 input#date, input#day_of_week, input#weight_kg, input#calories_kcal, input#protein_g,
 input#carbs_g, input#fats_g, input#sleep_duration_min, input#sleep_quality, input#mood,
-input#stress, input#gym_performance, input#resting_heart_rate, input#blood_pressure,
-input#blood_oxygen_level, input#supplements_taken, input#peds_taken {
+input#stress, input#gym_performance, select#gym_strength, input#resting_heart_rate, input#blood_pressure,
+input#blood_oxygen_level {
   background-color: white; /* Example background color for input fields */
   border: 1px solid black;
   border-radius: 4px;
@@ -212,12 +299,19 @@ input#blood_oxygen_level, input#supplements_taken, input#peds_taken {
 }
 
 /* Custom size for specific input fields */
-input#supplements_taken {
+textarea#supplements_taken {
   width: 350px;
   height: 100px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 40px;  /* Ensure consistent margin below this field */
 }
-
-input#peds_taken {
+textarea#peds_taken {
   width: 450px;
   height: 150px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 10px;  /* Ensure consistent margin below this field */
 }

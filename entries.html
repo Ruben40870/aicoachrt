@@ -7,44 +7,53 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Entries</h1>
-        <div>
-            <a href="dashboard.html" class="back-button">Dashboard</a>
-            <a href="gptcoach.html" class="back-button">GPTCoach</a>
-            <a href="index.html" class="back-button">Form</a>
-<<<<<<< HEAD
-            <a href="weight.html" class="back-button">Weight</a>
-=======
->>>>>>> 5a5123347646292f154ee8ce8e7e78215a285f4c
-            <button id="logoutButton" class="back-button">Logout</button>
+    <div class="wrapper">
+        <header>
+            <h1>Entries</h1>
+            <div>
+                <a href="dashboard.html" class="back-button">Dashboard</a>
+                <a href="gptcoach.html" class="back-button">GPTCoach</a>
+                <a href="index.html" class="back-button">Form</a> <!-- Added Forms button -->
+                <a href="weight.html" class="back-button">Weight</a>
+                <button id="logoutButton" class="back-button">Logout</button>
+            </div>
+        </header>
+        <div class="container">
+            <div class="table-container">
+                <table class="entries-table" id="entriesTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Day of the Week</th>
+                            <th>Weight (Kg)</th>
+                            <th>Calories (kcal)</th>
+                            <th>Protein (g)</th>
+                            <th>Carbs (g)</th>
+                            <th>Fats (g)</th>
+                            <th>Sleep Duration (min)</th>
+                            <th>Sleep Quality</th>
+                            <th>Mood</th>
+                            <th>Stress</th>
+                            <th>Gym Performance</th>
+                            <th>Gym Strength</th>
+                            <th>Resting Heart Rate</th>
+                            <th>Blood Pressure</th>
+                            <th>Blood Oxygen Level</th>
+                            <th>Supplements Taken</th>
+                            <th>PEDs Taken</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Table rows will be populated here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </header>
-    <table id="entriesTable">
-        <thead>
-            <tr>
-                <th class="date">Date</th>
-                <th class="day_of_week">Day of the Week</th>
-                <th class="weight_kg">Weight (Kg)</th>
-                <th class="calories_kcal">Calories (kcal)</th>
-                <th class="protein_g">Protein (g)</th>
-                <th class="carbs_g">Carbs (g)</th>
-                <th class="fats_g">Fats (g)</th>
-                <th class="sleep_duration_min">Sleep Duration (min)</th>
-                <th class="sleep_quality">Sleep Quality</th>
-                <th class="mood">Mood</th>
-                <th class="stress">Stress</th>
-                <th class="gym_performance">Gym Performance</th>
-                <th class="resting_heart_rate">Resting Heart Rate</th>
-                <th class="blood_pressure">Blood Pressure</th>
-                <th class="blood_oxygen_level">Blood Oxygen Level</th>
-                <th class="supplements_taken">Supplements Taken</th>
-                <th class="peds_taken">PEDs Taken</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+
+        <footer class="footer">
+            <p>Developed by Ruben Triegaardt</p>
+        </footer>
+    </div>
     <script>
         // Check if the user is authenticated
         if (!localStorage.getItem('authenticated')) {
@@ -70,12 +79,13 @@
                 window.location.href = 'login.html';
             });
         }
-<<<<<<< HEAD
-=======
 
-        // Fetch entries after authentication check
+        // Fetch entries functionality
         fetchEntries();
->>>>>>> 5a5123347646292f154ee8ce8e7e78215a285f4c
+
+        async function fetchEntries() {
+            // Fetch the entries data here. Ensure your existing fetch logic is integrated correctly.
+        }
     </script>
     <script src="script.js"></script>
 </body>

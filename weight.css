@@ -10,37 +10,59 @@ html {
 
 /* Body styling with background image */
 body {
-    font-family: Arial, sans-serif;
-    background-image: url('background.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: white;
-    /* Make all text white */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    /* Ensure the body takes the full viewport height */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('gym_background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  filter: blur(4px);
+  z-index: -1;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* Header styling */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 20px;
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
-header h1 {
-    margin: 0;
+.header-spacing {
+  margin-top: 0;
 }
 
 /* Center the main heading */
 h1 {
-    text-align: center;
+  text-align: center;
+  margin-top: 20px;
 }
 
 header div {
@@ -85,27 +107,30 @@ button#logoutButton:hover {
     box-sizing: border-box;
 }
 
+.label-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
 .label-selection {
     display: flex;
-    flex-direction: column;
-}
-
-label[for="currentWeight"] {
-    white-space: nowrap;
-    /* Prevent label from breaking into multiple lines */
-}
-
-.label-container label {
-    margin-right: 5px;
+    flex-direction: row;
+    align-items: center;
+    gap: 100px;
 }
 
 .right-align {
     display: flex;
     align-items: center;
     gap: 15px;
-    /* Space between input and button */
     margin-left: auto;
-    /* Push the group to the right */
+}
+
+label[for="currentWeight"] {
+    white-space: nowrap;
+    /* Prevent label from breaking into multiple lines */
 }
 
 /* Adjust the weight input field style */
@@ -143,10 +168,40 @@ label[for="currentWeight"] {
     display: inline-block;
 }
 
+/* Ensure the chart-container is positioned relative */
 .chart-container {
-    width: 100%;
-    height: 100vh;
-    /* Adjust the height as needed */
+  position: relative;
+  width: 100%;
+  height: 85%; /* Adjust as needed */
+  margin-top: 20px;
+  border-radius: 15px; /* Apply the same border-radius to the container */
+  overflow: hidden; /* Ensure the rounded corners are respected for the overlay */
+  padding: 20px; /* Add padding for the gap */
+  box-sizing: border-box; /* Include padding in the container's dimensions */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Semi-transparent overlay for the chart container */
+.chart-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  border-radius: 15px; /* Apply rounded corners */
+  z-index: -1; /* Ensure it appears behind the chart */
+}
+
+/* Adjust the canvas dimensions */
+.chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block; /* Ensure the canvas is a block element */
+  box-sizing: border-box;
 }
 
 #weightChart {

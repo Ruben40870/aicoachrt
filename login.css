@@ -3,7 +3,6 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-image: url('background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -12,6 +11,21 @@ body {
   align-items: center;
   height: 100vh; /* Full viewport height */
   color: white; /* Make all text white */
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('gym_background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  filter: blur(4px);
+  z-index: -1;
 }
 
 /* Login container styling */
@@ -28,14 +42,17 @@ body {
 
 /* Heading styling */
 .login-container h2 {
+  margin-top: 10px; /* Adjust this value to make the vertical spacing smaller */
   margin-bottom: 20px;
   color: black; /* Set the login heading text color to black */
+  font-size: 30px;
 }
 
 /* Label styling */
 .login-container label {
   display: block;
-  margin-top: 10px;
+  margin-top: 0;
+  margin-bottom: 25;
   text-align: left; /* Align labels to the left */
   margin-left: 25px; /* Indent the labels from the left */
 }
@@ -46,7 +63,7 @@ body {
   max-width: 350px;
   width: calc(100% - 50px); /* Ensure the inputs take full width minus padding */
   padding: 10px;
-  margin-top: 5px;
+  margin-top: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -61,8 +78,26 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .login-container input[type="submit"]:hover {
   background-color: #0056b3;
+}
+
+/* Footer styling */
+.footer {
+    width: 100%;
+    text-align: right;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 16px;
 }

@@ -1,0 +1,139 @@
+/* General body styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #282828;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header styling */
+header {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  font-size: 24px;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  color: white;
+}
+
+/* Center the main heading */
+h1 {
+  text-align: center;
+  margin-left: 12px;
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  padding: 0 30px;
+  align-items: center;
+}
+
+/* Form container styling */
+form {
+  width: 100%;
+  max-width: 400px; /* Constrain the form width */
+  background-color: rgba(255, 255, 255, 0); /* Semi-transparent white background */
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: left; /* Center the form elements */
+}
+
+form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+form input[type="text"], 
+form input[type="number"], 
+form input[type="date"], 
+form textarea,
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Increase height for the text areas */
+form textarea#supplements_taken {
+  height: 200px; /* Increase height as needed */
+}
+
+form textarea#peds_taken {
+  height: 250px; /* Increase height as needed */
+}
+
+/* Submit button styling */
+input[type="submit"] {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: auto;
+  max-width: 200px;
+  align-self: center;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Footer styling */
+.footer {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 600px) {
+  header {
+    font-size: 18px;
+  }
+
+  form {
+    padding: 10px;
+  }
+
+  input[type="submit"] {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  form label, form input[type="text"], 
+  form input[type="number"], 
+  form input[type="date"], 
+  form textarea, form select {
+    font-size: 14px;
+  }
+
+  .footer {
+    font-size: 14px;
+  }
+}
